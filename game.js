@@ -1,8 +1,8 @@
 var config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: 1200,
-  height: 600,
+  width: 980,
+  height: 720,
   backgroundColor: '#5cacd7',
   physics: {
     default: "arcade",
@@ -27,6 +27,11 @@ var game = new Phaser.Game(config);
 function preload() {
   this.load.image("clouds-big", "clouds-big.png");
   this.load.image("clouds-small", "clouds-small.png");
+  this.load.image("ring", "ring.png");
+  this.load.spritesheet("dude", "dude.png", {
+    frameWidth: 50,
+    frameHeight: 50,
+  });
 }
 
 function create() {
@@ -38,16 +43,19 @@ function create() {
     400,
     "clouds-small"
   );
+  
+  ring = this.add.image(480, 220, "ring")
+  ring.setScale(4)
 
-  sprite = this.physics.add.image(400, 300, "blue");
+  sprite = this.physics.add.image(400, 300, "dude");
 
-  sprite.setDamping(true);
-  sprite.setDrag(0.99);
-  sprite.setMaxVelocity(200);
+  // sprite.setDamping(true);
+  // sprite.setDrag(0.99);
+  // sprite.setMaxVelocity(200);
 
   cursors = this.input.keyboard.createCursorKeys();
 
-  text = this.add.text(10, 10, "", { font: "16px Courier", fill: "#00ff00" });
+  text = this.add.text(10, 10, "", { font: "32px Courier", fill: "black" });
 }
 
 function update() {
@@ -72,7 +80,7 @@ function update() {
     sprite.setAngularVelocity(0);
   }
 
-  text.setText("Speed: " + sprite.body.speed);
+  text.setText("Boxing!!");
 
   // if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
   // {
@@ -81,5 +89,4 @@ function update() {
 
   this.physics.world.wrap(sprite, 32);
 
-  // bullets.forEachExists(screenWrap, this);
 }
